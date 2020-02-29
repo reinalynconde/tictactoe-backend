@@ -1,6 +1,10 @@
 package com.exam.tictactoe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.exam.tictactoe.database.DatabaseHandler;
+import com.exam.tictactoe.database.Highscore;
 
 public class TicTacToeBoardHandler {
     private static int moveCounter = 0;
@@ -82,10 +86,10 @@ public class TicTacToeBoardHandler {
     }
 
     public static void storeWinner(String playerName, String playerTime) {
-        highScores.put(playerName, playerTime);
+        DatabaseHandler.addHighScore(playerName, playerTime);
     }
 
-    public static HashMap<String, String> getHighScores(){
-        return highScores;
+    public static ArrayList<Highscore> getHighScores(){
+        return DatabaseHandler.get10HighScores();
     }
 }
