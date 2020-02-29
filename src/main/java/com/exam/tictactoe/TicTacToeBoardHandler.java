@@ -25,6 +25,9 @@ public class TicTacToeBoardHandler {
 
             String diagonalCase = checkDiagonalCase(state);
             if (diagonalCase != null) return diagonalCase;
+            
+            String reverseDiagonalCase = checkReverseDiagonalCase(state);
+            if(reverseDiagonalCase != null) return reverseDiagonalCase;
 
             if(moveCounter == (boardSize * boardSize))
                 return "draw";
@@ -49,6 +52,7 @@ public class TicTacToeBoardHandler {
                     return latestMove;
             }
         }
+        
         return null;
     }
 
@@ -79,6 +83,23 @@ public class TicTacToeBoardHandler {
         }
 
         return null;
+    }
+    
+    private static String checkReverseDiagonalCase(BoardState state) {
+    	String[][] board = state.getBoard();
+    	String latestMove = state.getLatestMove();
+    	int boardSize = board[0].length;
+    	int middle = boardSize - 1;
+    	
+    	if(state.getRow() + state.getCol() == middle) {
+    		for(int i=0; i<boardSize; i++) {
+    			if(!board[i][middle - i].equals(latestMove))
+    				break;
+    			else if(i == middle)
+    				return latestMove;
+    		}
+    	}
+    	return null;
     }
 
     public static void resetMoveCounter(){
